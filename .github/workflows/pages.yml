@@ -1,0 +1,51 @@
+name: Publish CyberBrief
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 * * * *'
+permissions:
+  contents: read
+concurrency:
+  group: cyberbrief-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Restore collection cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: cyberbrief-feeds-${{ github.run_id }}
+          restore-keys: cyberbrief-feeds-
+      - name: Collect public feeds and build app
+        run: python3 scripts/build_static.py
+      - name: Check portable package
+        run: |
+          python3 scripts/check_static.py dist
+          node tests/static.test.cjs dist
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

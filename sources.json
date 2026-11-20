@@ -1,0 +1,10 @@
+[
+  {"id":"hackernews","name":"The Hacker News","url":"https://feeds.feedburner.com/TheHackersNews","kind":"rss"},
+  {"id":"bleeping","name":"BleepingComputer","url":"https://www.bleepingcomputer.com/feed/","kind":"rss"},
+  {"id":"krebs","name":"Krebs on Security","url":"https://krebsonsecurity.com/feed/","kind":"rss"},
+  {"id":"securityweek","name":"SecurityWeek","url":"https://www.securityweek.com/feed/","kind":"rss"},
+  {"id":"darkreading","name":"Dark Reading","url":"https://www.darkreading.com/rss.xml","kind":"rss"},
+  {"id":"sans","name":"SANS Internet Storm Center","url":"https://isc.sans.edu/rssfeed.xml","kind":"rss"},
+  {"id":"cisa","name":"CISA KEV","url":"https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json","kind":"kev"},
+  {"id":"nvd","name":"NIST NVD","url":"https://services.nvd.nist.gov/rest/json/cves/2.0","kind":"nvd"}
+]
